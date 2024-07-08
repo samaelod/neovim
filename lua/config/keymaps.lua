@@ -34,9 +34,9 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower win
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Shortcut for searching your Neovim configuration files
-vim.keymap.set("n", "<leader>sv", function()
-	require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
-end, { desc = "[S]earch [N]eovim files" })
+-- vim.keymap.set("n", "<leader>sv", function()
+-- 	require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
+-- end, { desc = "[S]earch [N]eovim files" })
 
 -- Shortcut for searching your Projects
 vim.keymap.set("n", "<leader>sp", function()
