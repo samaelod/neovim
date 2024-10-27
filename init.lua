@@ -1,3 +1,6 @@
+-- Kitty padding
+-- require("config.kittypad")
+
 -- Load options
 require("config.options")
 

@@ -66,23 +66,47 @@ require("lazy").setup({
 	-- Then, because we use the `config` key, the configuration only runs
 	-- after the plugin has been loaded:
 	--  config = function() ... end
-
-	{ -- Useful plugin to show you pending keybinds.
+	{
 		"folke/which-key.nvim",
-		event = "VimEnter", -- Sets the loading event to 'VimEnter'
-		config = function() -- This is the function that runs, AFTER loading
-			require("which-key").setup()
-
-			-- Document existing key chains
-			require("which-key").register({
-				["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-				["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-				["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
-				["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
-			})
-		end,
+		event = "VeryLazy",
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			{ "<leader>c", group = "[C]ode" },
+			{ "<leader>d", group = "[D]ocument" },
+			{ "<leader>r", group = "[R]ename" },
+			{ "<leader>s", group = "[S]earch" },
+			{ "<leader>w", group = "[W]orkspace" },
+			{ "<leader>g", group = "[G]o" },
+		},
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
 	},
+	-- { -- Useful plugin to show you pending keybinds.
+	-- 	"folke/which-key.nvim",
+	-- 	event = "VimEnter", -- Sets the loading event to 'VimEnter'
+	-- 	config = function() -- This is the function that runs, AFTER loading
+	-- 		require("which-key").setup()
+	--
+	-- 		-- Document existing key chains
+	-- 		require("which-key").register({
+	-- 			["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
+	-- 			["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
+	-- 			["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
+	-- 			["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
+	-- 			["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
+	-- 			-- ["<leader>g"] = { name = "[G]o", _ = "which_key_ignore" },
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- NOTE: Plugins can specify dependencies.
 	--
@@ -345,6 +369,7 @@ require("lazy").setup({
 				gopls = {},
 				templ = {},
 				cmake = {},
+				zls = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -549,7 +574,19 @@ require("lazy").setup({
 			})
 		end,
 	},
-
+	{
+		"rcarriga/nvim-notify",
+		opts = {
+			-- regular opts
+			background_colour = "#000000",
+		},
+		config = function(_, opts)
+			require("notify").setup(vim.tbl_extend("keep", {
+				-- other stuff
+				-- background_colour = "#000000",
+			}, opts))
+		end,
+	},
 	{ -- You can easily change to a different colorscheme.
 		-- Change the name of the colorscheme plugin below, and then
 		-- change the command in the config to whatever the name of that colorscheme is.
@@ -559,7 +596,7 @@ require("lazy").setup({
 		name = "catppuccin",
 		opts = {
 			term_colors = true,
-			transparent_background = false,
+			transparent_background = true,
 			styles = {
 				comments = {},
 				conditionals = {},
