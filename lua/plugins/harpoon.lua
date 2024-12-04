@@ -29,6 +29,7 @@ return {
 			end, { desc = "Open harpoon window" })
 		end,
 		keys = {
+
 			{
 				"<leader>A",
 				function()
@@ -37,7 +38,7 @@ return {
 				desc = "harpoon file",
 			},
 			{
-				"<C-b>",
+				"<leader>p",
 				function()
 					local harpoon = require("harpoon")
 					harpoon.ui:toggle_quick_menu(harpoon:list())

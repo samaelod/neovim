@@ -21,8 +21,8 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 -- vim.keymap.set('n', '<down>', '}')
 
 -- Move lines up and down
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==")
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==")
+vim.keymap.set("v", "K", ":m .-2<CR>==")
+vim.keymap.set("v", "J", ":m .+1<CR>==")
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
