@@ -40,7 +40,6 @@ return {
 			},
 		},
 		dashboard = {
-			enabled = true,
 			sections = {
 				{ section = "header" },
 				{
@@ -100,18 +99,20 @@ return {
 		},
 		styles = {
 			notification = {
+				relative = "editor",
 				wo = { wrap = true }, -- Wrap notifications
 			},
 			blame_line = {
+				relative = "editor",
 				width = 0.6,
 				height = 0.6,
 				border = "rounded",
-				title = " Git Blameeee ",
+				title = " Git Blame ",
 				title_pos = "center",
 				ft = "git",
 			},
 			input = {
-				backdrop = true,
+				-- backdrop = true,
 				position = "float",
 				border = "rounded",
 				title_pos = "center",
