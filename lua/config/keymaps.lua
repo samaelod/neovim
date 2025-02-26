@@ -15,14 +15,21 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '0')
--- vim.keymap.set('n', '<right>', '$')
--- vim.keymap.set('n', '<up>', '{')
--- vim.keymap.set('n', '<down>', '}')
+-- vim.keymap.set("n", "<left>", "0")
+-- vim.keymap.set("n", "<right>", "$")
+-- vim.keymap.set("n", "<up>", "10k")
+-- vim.keymap.set("n", "<down>", "10j")
 
 -- Move lines up and down
 vim.keymap.set("v", "K", ":m .-2<CR>==")
 vim.keymap.set("v", "J", ":m .+1<CR>==")
+
+-- Select all
+vim.keymap.set("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
+
+-- Quickfix list navigation
+vim.keymap.set("n", "<A-j>", "<cmd>cnext<CR>", { desc = "Go to next quickfix item" })
+vim.keymap.set("n", "<A-k>", "<cmd>cprev<CR>", { desc = "Go to previous quickfix item" })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
