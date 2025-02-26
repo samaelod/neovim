@@ -14,6 +14,10 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
+-- -- Enable/Disable Codeium
+-- vim.keymap.set("n", "<leader>ce", "<cmd>CodeiumEnable<cr>", { desc = "Enable Codeium" })
+-- vim.keymap.set("n", "<leader>cd", "<cmd>CodeiumDisable<cr>", { desc = "Disable Codeium" })
+
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set("n", "<left>", "0")
 -- vim.keymap.set("n", "<right>", "$")
