@@ -42,7 +42,7 @@ return { -- You can easily change to a different colorscheme.
 			color_overrides = {},
 			custom_highlights = function(colors)
 				return {
-					Comment = { fg = "#94a9b5" },
+					Comment = { fg = "#94b5b5" },
 					Visual = { bg = "#477797" }, -- Visual mode selection
 					TabLineSel = { bg = colors.pink },
 					CmpBorder = { fg = colors.surface2 },

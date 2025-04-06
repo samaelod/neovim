@@ -28,6 +28,7 @@ return { -- Autoformat
 			css = { "prettierd" },
 			html = { "prettierd" },
 			cpp = { "clang-format" },
+			-- go = { "gofmt" },
 			-- Conform can also run multiple formatters sequentially
 			-- python = { "isort", "black" },
 			--
