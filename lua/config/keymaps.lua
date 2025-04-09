@@ -1,8 +1,12 @@
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "<leader><left>", vim.diagnostic.goto_prev, { desc = "Go to previous Diagnostic message" })
-vim.keymap.set("n", "<leader><right>", vim.diagnostic.goto_next, { desc = "Go to next Diagnostic message" })
+vim.keymap.set("n", "<leader><left>", function()
+	vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Go to previous Diagnostic message" })
+vim.keymap.set("n", "<leader><right>", function()
+	vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Go to next Diagnostic message" })
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
@@ -25,8 +29,8 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 -- vim.keymap.set("n", "<down>", "10j")
 
 -- Move lines up and down
-vim.keymap.set("v", "K", ":m .-2<CR>==")
-vim.keymap.set("v", "J", ":m .+1<CR>==")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 
 -- Select all
 vim.keymap.set("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
@@ -44,11 +48,6 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
--- Shortcut for searching your Neovim configuration files
--- vim.keymap.set("n", "<leader>sv", function()
--- 	require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
--- end, { desc = "[S]earch [N]eovim files" })
-
 -- Shortcut for searching your Projects
 vim.keymap.set("n", "<leader>sp", function()
 	require("telescope.builtin").find_files({ cwd = "~/Projects" })
@@ -61,3 +60,12 @@ vim.keymap.set("n", "<leader>h", function()
 		previewer = false,
 	}))
 end, { desc = "[h] Fuzzily search in current buffer" })
+
+vim.keymap.set("n", "<leader>ia", function()
+	local api = require("supermaven-nvim.api")
+	if api.is_running() then
+		api.stop()
+	else
+		api.start()
+	end
+end, { desc = "[i]nit/stop [a]i" })

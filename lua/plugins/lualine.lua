@@ -2,8 +2,14 @@ return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
-		local function codeium()
-			return "{…}" .. tostring(require("codeium.virtual_text").status_string())
+		local function ai()
+			local api = require("supermaven-nvim.api")
+			if api.is_running() then
+				return ""
+			else
+				return ""
+			end
+			-- return "{…}" .. tostring(require("codeium.virtual_text").status_string())
 		end
 		require("lualine").setup({
 			options = {
@@ -29,7 +35,7 @@ return {
 				lualine_b = { "branch", "diff", "diagnostics" },
 				lualine_c = { "filename" },
 				lualine_x = { "encoding", "fileformat", "filetype" },
-				lualine_y = { codeium, "progress" },
+				lualine_y = { ai, "progress" },
 				lualine_z = { "location" },
 			},
 			tabline = {},
