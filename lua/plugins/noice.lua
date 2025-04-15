@@ -1,0 +1,26 @@
+return {
+	-- 	"folke/noice.nvim",
+	-- 	event = "VeryLazy",
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		"rcarriga/nvim-notify",
+	-- 	},
+	-- 	opts = {
+	-- 		cmdline = {
+	-- 			enabled = true,
+	-- 			view = "cmdline_popup",
+	-- 			format = {
+	-- 				cmdline = { icon = "", lang = "vim" },
+	-- 				search_down = { icon = " ↓", lang = "regex" },
+	-- 				search_up = { icon = " ↑", lang = "regex" },
+	-- 			},
+	-- 		},
+	-- 		popupmenu = {
+	-- 			enabled = true,
+	-- 			backend = "nui", -- makes it a floating popup
+	-- 		},
+	-- 		messages = {
+	-- 			enabled = true,
+	-- 		},
+	-- 	},
+}

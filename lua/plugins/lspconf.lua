@@ -126,6 +126,7 @@ return { -- LSP Configuration & Plugins
 					},
 				},
 			},
+			texlab = {},
 		}
 		require("lspconfig").gopls.setup({
 			settings = {

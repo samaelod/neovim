@@ -42,11 +42,13 @@ return { -- You can easily change to a different colorscheme.
 			color_overrides = {},
 			custom_highlights = function(colors)
 				return {
-					Comment = { fg = "#94b5b5" },
+					Comment = { fg = "#94b5b5", style = { "italic" } },
 					Visual = { bg = "#477797" }, -- Visual mode selection
 					TabLineSel = { bg = colors.pink },
 					CmpBorder = { fg = colors.surface2 },
 					Pmenu = { bg = colors.none },
+					LineNr = { fg = "#348585" },
+					CursorLineNr = { fg = colors.peach, bg = colors.mantle, style = { "bold" } },
 					-- DiagnosticWarn = { fg = colors.yellow },
 					-- DiagnosticHint = { fg = colors.blue },
 					-- DiagnosticInfo = { fg = colors.blue },

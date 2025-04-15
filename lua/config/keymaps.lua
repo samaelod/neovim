@@ -22,18 +22,18 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 -- vim.keymap.set("n", "<leader>ce", "<cmd>CodeiumEnable<cr>", { desc = "Enable Codeium" })
 -- vim.keymap.set("n", "<leader>cd", "<cmd>CodeiumDisable<cr>", { desc = "Disable Codeium" })
 
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set("n", "<left>", "0")
--- vim.keymap.set("n", "<right>", "$")
--- vim.keymap.set("n", "<up>", "10k")
--- vim.keymap.set("n", "<down>", "10j")
+-- TIP: Change arrow keys in normal mode
+vim.keymap.set("n", "<left>", "g0")
+vim.keymap.set("n", "<right>", "g$")
+vim.keymap.set("n", "<up>", "gk")
+vim.keymap.set("n", "<down>", "gj")
 
 -- Move lines up and down
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 
 -- Select all
-vim.keymap.set("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
+vim.keymap.set("n", "<A-a>", "gg<S-v>G", { desc = "Select all" })
 
 -- Quickfix list navigation
 vim.keymap.set("n", "<A-j>", "<cmd>cnext<CR>", { desc = "Go to next quickfix item" })
