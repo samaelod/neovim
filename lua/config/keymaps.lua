@@ -69,3 +69,5 @@ vim.keymap.set("n", "<leader>ia", function()
 		api.start()
 	end
 end, { desc = "[i]nit/stop [a]i" })
+
+vim.keymap.set("n", "<leader>m", "<cmd>LivePreview start<cr>", { desc = "Live preview" })

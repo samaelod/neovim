@@ -127,6 +127,7 @@ return { -- LSP Configuration & Plugins
 				},
 			},
 			texlab = {},
+			tinymist = {},
 		}
 		require("lspconfig").gopls.setup({
 			settings = {
