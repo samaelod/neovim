@@ -49,6 +49,7 @@ return { -- You can easily change to a different colorscheme.
 					Pmenu = { bg = colors.none },
 					LineNr = { fg = "#348585" },
 					CursorLineNr = { fg = colors.peach, bg = colors.mantle, style = { "bold" } },
+					CursorLine = { bg = "#000000" },
 					-- DiagnosticWarn = { fg = colors.yellow },
 					-- DiagnosticHint = { fg = colors.blue },
 					-- DiagnosticInfo = { fg = colors.blue },

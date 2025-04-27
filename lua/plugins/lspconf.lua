@@ -35,6 +35,15 @@ return { -- LSP Configuration & Plugins
 		},
 	},
 	config = function()
+		-- Set border to hover documentation
+		local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+		function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+			opts = opts or {}
+			opts.border = opts.border or "rounded"
+
+			return orig_util_open_floating_preview(contents, syntax, opts, ...)
+		end
+
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
 		require("lspconfig").lua_ls.setup({ capabilities = capabilities })
 		require("lspconfig").htmx.setup({
@@ -78,14 +87,7 @@ return { -- LSP Configuration & Plugins
 				-- Execute a code action, usually your cursor needs to be on top of an error
 				-- or a suggestion from your LSP for this to activate.
 				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-				local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 
-				function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-					opts = opts or {}
-					opts.border = opts.border or "rounded"
-
-					return orig_util_open_floating_preview(contents, syntax, opts, ...)
-				end
 				-- Opens a popup that displays documentation about the word under your cursor
 				--  See `:help K` for why this keymap.
 				map("K", vim.lsp.buf.hover, "Hover Documentation")
