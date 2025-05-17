@@ -16,7 +16,7 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<C-x>", "<C-\\><C-n><cmd>q<CR>", { desc = "Exit terminal mode" })
 
 -- -- Enable/Disable Codeium
 -- vim.keymap.set("n", "<leader>ce", "<cmd>CodeiumEnable<cr>", { desc = "Enable Codeium" })
@@ -47,19 +47,6 @@ vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left wind
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-
--- Shortcut for searching your Projects
-vim.keymap.set("n", "<leader>sp", function()
-	require("telescope.builtin").find_files({ cwd = "~/Projects" })
-end, { desc = "[S]earch [P]rojects files" })
-
--- Fuzzy search in current buffer
-vim.keymap.set("n", "<leader>h", function()
-	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-		winblend = 10,
-		previewer = false,
-	}))
-end, { desc = "[h] Fuzzily search in current buffer" })
 
 vim.keymap.set("n", "<leader>ia", function()
 	local api = require("supermaven-nvim.api")

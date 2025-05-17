@@ -43,7 +43,7 @@ return { -- You can easily change to a different colorscheme.
 			custom_highlights = function(colors)
 				return {
 					Comment = { fg = "#94b5b5", style = { "italic" } },
-					Visual = { bg = "#477797" }, -- Visual mode selection
+					Visual = { bg = "#700707" }, -- Visual mode selection
 					TabLineSel = { bg = colors.pink },
 					CmpBorder = { fg = colors.surface2 },
 					Pmenu = { bg = colors.none },
