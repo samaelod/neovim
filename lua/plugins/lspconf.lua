@@ -2,8 +2,8 @@ return { -- LSP Configuration & Plugins
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		-- Automatically install LSPs and related tools to stdpath for Neovim
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
+		"mason-org/mason.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"saghen/blink.cmp",
 
@@ -20,9 +20,7 @@ return { -- LSP Configuration & Plugins
 			opts = {
 				library = {
 					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-					{ path = "LazyVim", words = { "LazyVim" } },
 					{ path = "snacks.nvim", words = { "Snacks" } },
-					{ path = "lazy.nvim", words = { "LazyVim" } },
 				},
 			},
 		},
@@ -169,13 +167,7 @@ return { -- LSP Configuration & Plugins
 		require("mason-lspconfig").setup({
 			ensure_installed = vim.tbl_keys(servers),
 			automatic_installation = true,
-			automatic_enable = false,
+			automatic_enable = true,
 		})
-		-- This runs immediately and sets up all LSPs from the `servers` table
-		for server_name, server_config in pairs(servers) do
-			server_config.capabilities =
-				vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {})
-			require("lspconfig")[server_name].setup(server_config)
-		end
 	end,
 }
