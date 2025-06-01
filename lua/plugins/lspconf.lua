@@ -45,11 +45,6 @@ return { -- LSP Configuration & Plugins
 		end
 
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
-		require("lspconfig").lua_ls.setup({ capabilities = capabilities })
-		require("lspconfig").htmx.setup({
-			capabilities = capabilities,
-			filetypes = { "html", "templ" },
-		})
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -117,7 +112,16 @@ return { -- LSP Configuration & Plugins
 		})
 
 		local servers = {
-			gopls = {},
+			gopls = {
+				settings = {
+					gopls = {
+						completeUnimported = true, -- Enables auto-imports
+						usePlaceholders = true,
+						gofumpt = true,
+						staticcheck = true,
+					},
+				},
+			},
 			templ = {},
 			cmake = {},
 			zls = {},
@@ -138,17 +142,11 @@ return { -- LSP Configuration & Plugins
 			texlab = {},
 			tinymist = {},
 			elixirls = {},
-		}
-		require("lspconfig").gopls.setup({
-			settings = {
-				gopls = {
-					completeUnimported = true, -- Enables auto-imports
-					usePlaceholders = true,
-					gofumpt = true,
-					staticcheck = true,
-				},
+			htmx = {
+				capabilities = capabilities,
+				filetypes = { "html", "templ" },
 			},
-		})
+		}
 		-- Ensure the servers and tools above are installed
 		--  To check the current status of installed tools and/or manually install
 		--  other tools, you can run
@@ -169,18 +167,15 @@ return { -- LSP Configuration & Plugins
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		require("mason-lspconfig").setup({
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-					-- This handles overriding only values explicitly passed
-					-- by the server configuration above. Useful when disabling
-					-- certain features of an LSP (for example, turning off formatting for tsserver)
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
-				end,
-			},
 			ensure_installed = vim.tbl_keys(servers),
 			automatic_installation = true,
+			automatic_enable = false,
 		})
+		-- This runs immediately and sets up all LSPs from the `servers` table
+		for server_name, server_config in pairs(servers) do
+			server_config.capabilities =
+				vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {})
+			require("lspconfig")[server_name].setup(server_config)
+		end
 	end,
 }
