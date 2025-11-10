@@ -144,6 +144,14 @@ return { -- LSP Configuration & Plugins
 				capabilities = capabilities,
 				filetypes = { "html", "templ" },
 			},
+			tailwindcss = {
+				filetypes = { "css", "html", "templ" },
+				init_options = {
+					userLanguages = {
+						templ = "html",
+					},
+				},
+			},
 		}
 		-- Ensure the servers and tools above are installed
 		--  To check the current status of installed tools and/or manually install
@@ -167,7 +175,21 @@ return { -- LSP Configuration & Plugins
 		require("mason-lspconfig").setup({
 			ensure_installed = vim.tbl_keys(servers),
 			automatic_installation = true,
-			automatic_enable = true,
+			handlers = {
+				function(server_name)
+					local server = servers[server_name] or {}
+					server.capabilities = vim.tbl_deep_extend(
+						"force",
+						{},
+						require("blink.cmp").get_lsp_capabilities(),
+						server.capabilities or {}
+					)
+
+					-- New native API
+					vim.lsp.config(server_name, server)
+					vim.lsp.enable({ server_name })
+				end,
+			},
 		})
 	end,
 }
