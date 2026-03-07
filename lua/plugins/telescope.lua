@@ -68,7 +68,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
 		-- Shortcut for searching your Projects
 		vim.keymap.set("n", "<leader>sp", function()
-			builtin.find_files({ cwd = "~/Projects" })
+			builtin.find_files({ cwd = vim.fn.expand("~/Projects") })
 		end, { desc = "[S]earch [P]rojects files" })
 	end,
 }
