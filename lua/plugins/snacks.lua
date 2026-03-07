@@ -78,30 +78,9 @@ return {
 		dashboard = {
 			sections = {
 				{ section = "header" },
-				{
-					pane = 2,
-					section = "terminal",
-					cmd = "colorscript -e square",
-					height = 5,
-					padding = 1,
-				},
-				{ section = "keys", gap = 1, padding = 1 },
-				{ pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-				{ pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-				{
-					pane = 2,
-					icon = " ",
-					title = "Git Status",
-					section = "terminal",
-					enabled = function()
-						return Snacks.git.get_root() ~= nil
-					end,
-					cmd = "git status --short --branch --renames",
-					height = 5,
-					padding = 1,
-					ttl = 5 * 60,
-					indent = 3,
-				},
+				{ icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
+				{ icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+				{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
 				{ section = "startup" },
 			},
 		},
@@ -115,7 +94,7 @@ return {
 			left = { "mark", "sign" }, -- priority of signs on the left (high to low)
 			right = { "fold", "git" }, -- priority of signs on the right (high to low)
 			folds = {
-				open = true, -- show open fold icons
+				open = true,  -- show open fold icons
 				git_hl = false, -- use Git Signs hl for fold icons
 			},
 			git = {
@@ -125,12 +104,12 @@ return {
 			refresh = 50,
 		},
 		words = {
-			enabled = true, -- enable/disable the plugin
-			debounce = 200, -- time in ms to wait before updating
+			enabled = true,   -- enable/disable the plugin
+			debounce = 200,   -- time in ms to wait before updating
 			notify_jump = false, -- show a notification when jumping
 			notify_end = true, -- show a notification when reaching the end
-			foldopen = true, -- open folds after jumping
-			jumplist = true, -- set jump point before jumping
+			foldopen = true,  -- open folds after jumping
+			jumplist = true,  -- set jump point before jumping
 			modes = { "n", "i", "c" }, -- modes to show references
 		},
 		styles = {
@@ -161,7 +140,8 @@ return {
 				-- row = -3,
 				-- col = 0,
 				wo = {
-					winhighlight = "NormalFloat:SnacksInputNormal,FloatBorder:SnacksInputBorder,FloatTitle:SnacksInputTitle",
+					winhighlight =
+					"NormalFloat:SnacksInputNormal,FloatBorder:SnacksInputBorder,FloatTitle:SnacksInputTitle",
 					cursorline = false,
 				},
 				bo = {
