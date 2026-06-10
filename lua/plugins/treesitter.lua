@@ -11,7 +11,7 @@ return { -- Highlight, edit, and navigate code
 
 		-- Autoinstall languages that are not installed
 		-- Installazione dei parser desiderati su main branch
-		local ensure_installed = { "bash", "c", "html", "lua", "luadoc", "markdown", "vim", "vimdoc", "query" }
+		local ensure_installed = { "bash", "c", "cpp", "html", "lua", "luadoc", "markdown", "vim", "vimdoc", "query" }
 		local installed = ts.get_installed()
 		local not_installed = vim.tbl_filter(function(parser)
 			return not vim.tbl_contains(installed, parser)

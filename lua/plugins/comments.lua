@@ -1,7 +1,16 @@
 return {
 	"numToStr/Comment.nvim",
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
+	dependencies = {
+		{
+			"JoosepAlviste/nvim-ts-context-commentstring",
+			config = function()
+				require("ts_context_commentstring").setup({
+					enable_autocmd = false,
+				})
+			end,
+		},
+	},
 
 	config = function()
 		local comment = require("Comment") -- import comment just incase
