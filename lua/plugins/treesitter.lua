@@ -1,40 +1,60 @@
 return { -- Highlight, edit, and navigate code
 	"nvim-treesitter/nvim-treesitter",
+	branch = "main", -- Usa il branch main per compatibilità con Neovim 0.12+
+	lazy = false,
 	build = ":TSUpdate",
 
-	opts = {
-		ensure_installed = { "bash", "c", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
+	config = function()
+		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+		local ts = require("nvim-treesitter")
+		ts.setup()
 
 		-- Autoinstall languages that are not installed
-		auto_install = true,
-		highlight = {
-			enable = true,
-			disable = function(lang, bufnr)
-				local ft = vim.bo[bufnr].filetype
-				-- Disable Treesitter highlighting in health and help buffers
-				return ft == "help" or ft == "checkhealth"
+		-- Installazione dei parser desiderati su main branch
+		local ensure_installed = { "bash", "c", "html", "lua", "luadoc", "markdown", "vim", "vimdoc", "query" }
+		local installed = ts.get_installed()
+		local not_installed = vim.tbl_filter(function(parser)
+			return not vim.tbl_contains(installed, parser)
+		end, ensure_installed)
+
+		if #not_installed > 0 then
+			ts.install(not_installed)
+		end
+
+		-- Disable Treesitter highlighting in health and help buffers
+		-- Configurazione autocommand per avviare l'highlighting nativo ed escludere specifici filetype
+		vim.api.nvim_create_autocmd("FileType", {
+			callback = function(args)
+				local ft = vim.bo[args.buf].filetype
+				if ft == "help" or ft == "checkhealth" then
+					return
+				end
+				local lang = vim.treesitter.language.get_lang(args.match)
+				if lang and vim.treesitter.language.add(lang) then
+					vim.treesitter.start()
+				end
 			end,
-			additional_vim_regex_highlighting = false,
-		},
+		})
 
-		indent = { enable = true },
+		-- Abilita l'indentazione con Tree-sitter per i file supportati (indent = { enable = true })
+		vim.api.nvim_create_autocmd("FileType", {
+			callback = function(args)
+				local lang = vim.treesitter.language.get_lang(args.match)
+				if lang and vim.treesitter.language.add(lang) then
+					vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end
+			end,
+		})
 
-		incremental_selection = {
-			enable = true,
-			keymaps = {
-				-- set to `false` to disable one of the mappings
-				init_selection = "<Enter>",
-				node_incremental = "<Enter>",
-				scope_incremental = false,
-				node_decremental = "<Backspace>",
-			},
-		},
-	},
-	config = function(_, opts)
-		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+		-- Configura l'incremental selection nativo di Neovim 0.12+ (in precedenza configurato tramite incremental_selection.keymaps)
+		-- set to `false` to disable one of the mappings
+		vim.keymap.set({ "n", "x" }, "<Enter>", function()
+			require("vim.treesitter._select").select_parent(vim.v.count1)
+		end, { desc = "Espandi selezione Treesitter" })
 
-		---@diagnostic disable-next-line: missing-fields
-		require("nvim-treesitter.configs").setup(opts)
+		vim.keymap.set({ "n", "x" }, "<Backspace>", function()
+			require("vim.treesitter._select").select_child(vim.v.count1)
+		end, { desc = "Riduci selezione Treesitter" })
 
 		-- There are additional nvim-treesitter modules that you can use to interact
 		-- with nvim-treesitter. You should go explore a few and see what interests you:
