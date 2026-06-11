@@ -29,9 +29,11 @@ return { -- Highlight, edit, and navigate code
 				if ft == "help" or ft == "checkhealth" then
 					return
 				end
-				local lang = vim.treesitter.language.get_lang(args.match)
-				if lang and vim.treesitter.language.add(lang) then
-					vim.treesitter.start()
+				local lang = vim.treesitter.language.get_lang(args.match) or args.match
+				-- Controlla in sicurezza se il parser è disponibile prima di avviare Treesitter
+				local has_parser, _ = pcall(vim.treesitter.get_parser, args.buf, lang)
+				if has_parser then
+					pcall(vim.treesitter.start, args.buf, lang)
 				end
 			end,
 		})
@@ -39,8 +41,10 @@ return { -- Highlight, edit, and navigate code
 		-- Abilita l'indentazione con Tree-sitter per i file supportati (indent = { enable = true })
 		vim.api.nvim_create_autocmd("FileType", {
 			callback = function(args)
-				local lang = vim.treesitter.language.get_lang(args.match)
-				if lang and vim.treesitter.language.add(lang) then
+				local lang = vim.treesitter.language.get_lang(args.match) or args.match
+				-- Imposta indentexpr solo se il parser è disponibile
+				local has_parser, _ = pcall(vim.treesitter.get_parser, args.buf, lang)
+				if has_parser then
 					vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 				end
 			end,
